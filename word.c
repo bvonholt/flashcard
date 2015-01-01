@@ -1,4 +1,5 @@
 #include "word.h"
+#include "node.h"
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -39,15 +40,15 @@ word_t *read_words(){
 		}
 
 		ch = line;
-
 		/*read word id from line*/
 		for (j = 0; *ch != '*'; j++){
-			words[i]->word_id[j]=*ch++;
+			words[i].word_id[j]=*ch++;
 		}
 		
 		/*make sure the string is null terminated*/
-		words[i]->word_id[3] = '\0';
+		words[i].word_id[3] = '\0';
 
+#ifdef comment
 		/*loop through fields*/
 		field_node *fn = words[i].fields;
 		while(++ch != '*'){
@@ -61,6 +62,7 @@ word_t *read_words(){
 			}
 		}
 		words[i]->back[j--] = '\0';
+#endif
 	}
 	fclose(data_file);
 	return words;
