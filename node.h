@@ -10,4 +10,8 @@ struct field_node {
 	char text[MAX_FIELD_TEXT_LENGTH];
 	struct field_node *next;
 };
+
+struct field_node *add_to_end(struct field_node **list, struct field_node *new_field);
+void free_list(struct field_node **list);
+
 #endif

@@ -17,4 +17,6 @@ typedef struct {
 	char word_id[NUM_ID_DIGITS];
 } word_t;
 
+word_t *read_words();
+
 #endif

@@ -1,4 +1,4 @@
 3
-id1*prompt:dog,word:der Hund,gender:m,plural:Hunde*noun,animal,family*
-id2*prompt:cat,word:die Katze,gender:f,plural:Katzen*noun,animal,family*
-id3*prompt:child,word:das Kind,gender:n,plural:Kinder*noun,family*
+id1*prompt:dog,word:der Hund,gender:m,plural:Hunde,*noun,animal,family*
+id2*prompt:cat,word:die Katze,gender:f,plural:Katzen,*noun,animal,family*
+id3*prompt:child,word:das Kind,gender:n,plural:Kinder,*noun,family*
