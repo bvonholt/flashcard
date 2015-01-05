@@ -2,6 +2,7 @@
 #include "node.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 word_t *read_words(){
 
@@ -75,3 +76,30 @@ word_t *read_words(){
 	fclose(data_file);
 	return words;
 }
+char *getprompt(word_t word){
+
+	return NULL;
+
+}
+	
+char *getfield(word_t word, char *name){
+	struct field_node *field;
+     	field = getnode(word.fields, name);
+	if (!field)
+		return NULL;
+	
+	char *str;
+	str = malloc(sizeof(char) * (strlen(field->name) + strlen(field->text) + 3));
+	strcpy(str, field->name);
+	strcat(str, ": ");
+	strcat(str, field->text);
+	return str;
+}
+
+
+
+
+
+
+
+	

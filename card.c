@@ -1,12 +1,19 @@
 #include "card.h"
 #include <stdio.h>
 
-int print_front(card_t card){
-	return 0;
+void print_front(card_t* c){
+	printf("\t\t....................\n");
+	printf("\t\t.                  .\n");
+	printf("\t\t." " %-17s"       ".\n", c->front);
+	printf("\t\t.                  .\n");
+	printf("\t\t....................\n");
 }
-
-int print_back(card_t card){
-	return 0;
+void print_back(card_t* c){
+	printf("\t\t....................\n");
+	printf("\t\t.                  .\n");
+	printf("\t\t." " %-17s"       ".\n", c->back);
+	printf("\t\t.                  .\n");
+	printf("\t\t....................\n");
 }
 
 void shuffle(card_t *deck, int size){

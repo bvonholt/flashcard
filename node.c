@@ -1,4 +1,5 @@
 #include "node.h"
+#include <string.h>
 
 void free_list(struct field_node **list){
 
@@ -49,6 +50,15 @@ struct field_node *add_to_end(struct field_node **list,
 	node->next = new_field;
 
 	return *list;
+}
+
+struct field_node *getnode(struct field_node *list, char *name){
+	struct field_node *node;
+	for (node = list; node != NULL; node = node->next){
+	      	if (strcmp(node->name, name) == 0)	
+			return node;
+	}
+	return NULL;
 }
 
 int count_fields(struct field_node *list){
