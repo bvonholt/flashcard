@@ -1,6 +1,12 @@
 #include "node.h"
 #include <string.h>
 
+/**
+ * Takes a pointer to a pointer to a field_node structure
+ * (representing a pointer to a list of fields), and iterates
+ * through the list, freeing the memory for each node.  Last,
+ * it sets the list pointed to to NULL.
+ **/
 void free_list(struct field_node **list){
 
 	struct field_node *p = *list, *temp;
@@ -24,7 +30,9 @@ void delete_s(struct field_node **list, char *field_name){
 		;
 }
 
-
+/**
+ * adds a field to the front of a list.
+ **/
 struct field_node *add_to_front(struct field_node **list,
 	struct field_node *new_field){
 
@@ -33,7 +41,9 @@ struct field_node *add_to_front(struct field_node **list,
 	*list = new_field;
 	return *list;
 }
-
+/**
+ * Adds a field to the end of a list.
+ **/
 struct field_node *add_to_end(struct field_node **list, 
 		struct field_node *new_field){
 
@@ -52,6 +62,10 @@ struct field_node *add_to_end(struct field_node **list,
 	return *list;
 }
 
+/**
+ * Searches for a node with a given name.  Returns the node if
+ * found, NULL otherwise.
+ **/
 struct field_node *getnode(struct field_node *list, char *name){
 	struct field_node *node;
 	for (node = list; node != NULL; node = node->next){
@@ -60,7 +74,9 @@ struct field_node *getnode(struct field_node *list, char *name){
 	}
 	return NULL;
 }
-
+/**
+ * Iterates through the list, counting nodes.  Returns the count.
+ **/
 int count_fields(struct field_node *list){
 
 	int i;

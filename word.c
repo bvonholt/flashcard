@@ -4,6 +4,10 @@
 #include <stdio.h>
 #include <string.h>
 
+/**
+ * Reads a list of words from a data file.  Returns a pointer
+ * to an array of word_t structures.
+**/
 word_t *read_words(){
 
 	/*file pointer*/
@@ -51,9 +55,6 @@ word_t *read_words(){
 		/*loop through fields*/
 		ch++;
 		while(*ch != '*'){
-		//int x;
-		//for (x = 0; x < 3; x++){
-
 			new_field = malloc(sizeof(struct field_node));
 			/*read field name*/
 			for(j = 0; *ch != ':'; j++){
@@ -76,12 +77,44 @@ word_t *read_words(){
 	fclose(data_file);
 	return words;
 }
+/**
+ * writes a given list of words to file
+ **/
+void write_words(word_t word){
+	FILE *data_file; 	
+
+	/*make sure file exists and can be opened*/
+	if ( (data_file = fopen(WORDS_FILE, "w")) == NULL){
+		printf("Could not open file\n");
+		exit(FILE_ERROR);
+	}
+	
+	fclose(data_file);
+}
+/**
+ * searches for a field named "prompt" in the list of fields
+ * for a given word.  Returns the text string
+ * for that field if found, NULL otherwise.
+ **/
 char *getprompt(word_t word){
 
-	return NULL;
+	struct field_node *field;
+     	field = getnode(word.fields, "prompt");
+	if (!field)
+		return NULL;
+
+	char *str;
+	str = malloc(sizeof(char) * (strlen(field->text)) + 1);
+	strcpy(str, field->text);
+	return str;
 
 }
 	
+/**
+ * searches for a field of given name in the list of fields
+ * for a given word.  Returns a "[name]:[text]" string
+ * for that field if found, NULL otherwise.
+ **/
 char *getfield(word_t word, char *name){
 	struct field_node *field;
      	field = getnode(word.fields, name);
@@ -95,11 +128,3 @@ char *getfield(word_t word, char *name){
 	strcat(str, field->text);
 	return str;
 }
-
-
-
-
-
-
-
-	

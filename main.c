@@ -8,16 +8,8 @@ void play_deck(card_t *deck, int deck_size);
 int main(void){
 	word_t *words = read_words();
 
-	//while(words++ != NULL)
 	int i;	
 	struct field_node *f;
-	for(i = 0; i < 3; i++){
-		printf("id: %s\n", words[i].word_id);
-		for(f = words[i].fields; f != NULL; f = f->next){
-			printf("name: %s\t", f->name);
-			printf("text: %s\n", f->text);
-		}
-	}
 
 	printf("~~~flashcard~~~\n");
 	char input;
@@ -26,7 +18,6 @@ int main(void){
 	card_t *deck = make_deck(words, "prompt", "word");
 	while(!quit){
 		printf("~ (V)iew cards, (Q)uit >");
-//		printf("~ ");
 		input = getchar();
 		while (input != '\n' && getchar() != '\n')
 			input = '\0';
@@ -46,19 +37,25 @@ int main(void){
 	return 0;
 
 }
-
+/**
+ * Creates an array of cards based on a given set of tags
+ **/
 card_t *make_deck(word_t *words, char *field1, char *field2){
 	char *front, *back;
 	card_t *cards = malloc(sizeof(card_t) * 3);
 	int i;
 	for (i = 0; i < 3; i++){
-		front = getfield(words[i], field1);
-		back = getfield(words[i], field2);
-		cards[i].front = front;
-		cards[i].back = back;
+		
+		
+		cards[i].front = getprompt(words[i], field1);
+		cards[i].back = getfield(words[i], field2);
 	}
 	return cards;
 }
+/**
+ * Takes a user through the process of playing a given deck of
+ * cards
+ **/
 void play_deck(card_t *deck, int deck_size){
 	int i;
 	for(i = 0; i < deck_size; i++){
@@ -66,6 +63,7 @@ void play_deck(card_t *deck, int deck_size){
 		while (getchar() != '\n')
 			;
 		print_back(&deck[i]);
+		while (getchar() != '\n')
+			;
 	}
 }
-
