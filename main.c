@@ -34,6 +34,8 @@ int main(void){
 				
 		}
 	}
+	write_words(words);
+
 	return 0;
 
 }

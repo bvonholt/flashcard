@@ -80,13 +80,46 @@ word_t *read_words(){
 /**
  * writes a given list of words to file
  **/
-void write_words(word_t word){
+void write_words(word_t *words){
 	FILE *data_file; 	
+	printf("Whee!\n");
 
 	/*make sure file exists and can be opened*/
 	if ( (data_file = fopen(WORDS_FILE, "w")) == NULL){
 		printf("Could not open file\n");
 		exit(FILE_ERROR);
+	}
+
+
+	char *line = calloc(500, sizeof(char));
+	struct field_node *node;
+
+	int i, j, n;
+	for(i = 0; i < 3; i++){
+
+		j = 0;
+		strcpy(line, words[i].word_id);
+
+		j = 3;
+		line[j++]='*';	
+	printf("%s\n", line);
+
+		for(node = words[i].fields; node != NULL; node = node->next){
+			for(n = 0; node->name[n] != '\0'; n++)
+				line[j++] = node->name[n];
+			
+			line[j++]=':';	
+			for(n = 0; node->text[n] != '\0'; n++)
+				line[j++] = node->text[n];
+			line[j++]=',';	
+	printf("%s\n", line);
+		}
+		line[j++] = '*';
+		line[j] = '\n';
+		line[++j] = '\0';
+
+	printf("%s\n", line);
+		fputs(line, data_file);
 	}
 	
 	fclose(data_file);

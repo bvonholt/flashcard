@@ -1,0 +1,19 @@
+3
+****************************************************
+id1 noun animal family
+prompt:		dog
+word:		der Hund
+gender:		m
+plural:		Hunde
+****************************************************
+id2 noun animal family
+-prompt:		cat
+-word:			die Katze
+-gender:		f
+-plural:		Katzen
+****************************************************
+id3 noun family
+prompt:		child
+word:		das Kind
+gender:		n
+plural:		Kinder
