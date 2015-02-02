@@ -9,7 +9,7 @@
  * to an array of word_t structures.
 **/
 word_t *read_words(){
-
+	
 	/*file pointer*/
 	FILE *data_file;
 
@@ -73,6 +73,7 @@ word_t *read_words(){
 			add_to_end(&(words[i].fields), new_field);
 
 		}
+		printf("%s", words[i].word_id);
 	}
 	fclose(data_file);
 	return words;
@@ -82,7 +83,6 @@ word_t *read_words(){
  **/
 void write_words(word_t *words){
 	FILE *data_file; 	
-	printf("Whee!\n");
 
 	/*make sure file exists and can be opened*/
 	if ( (data_file = fopen(WORDS_FILE, "w")) == NULL){
@@ -102,7 +102,6 @@ void write_words(word_t *words){
 
 		j = 3;
 		line[j++]='*';	
-	printf("%s\n", line);
 
 		for(node = words[i].fields; node != NULL; node = node->next){
 			for(n = 0; node->name[n] != '\0'; n++)
@@ -112,13 +111,11 @@ void write_words(word_t *words){
 			for(n = 0; node->text[n] != '\0'; n++)
 				line[j++] = node->text[n];
 			line[j++]=',';	
-	printf("%s\n", line);
 		}
 		line[j++] = '*';
 		line[j] = '\n';
 		line[++j] = '\0';
 
-	printf("%s\n", line);
 		fputs(line, data_file);
 	}
 	
@@ -151,13 +148,29 @@ char *getprompt(word_t word){
 char *getfield(word_t word, char *name){
 	struct field_node *field;
      	field = getnode(word.fields, name);
-	if (!field)
+	return tostr(field);
+}
+char *nextfield(char *name, char *text, struct field_node *fields){
+	static struct field_node *field;
+	if (fields){
+		field = fields;
 		return NULL;
+	}
+
+	if (name){
+		strcpy(field->name, name);
+		free(name);
+	}
+		 
+	if (text){
+		strcpy(field->text, text);
+		free(text);
+	}
 	
-	char *str;
-	str = malloc(sizeof(char) * (strlen(field->name) + strlen(field->text) + 3));
-	strcpy(str, field->name);
-	strcat(str, ": ");
-	strcat(str, field->text);
-	return str;
+	field = field->next;
+
+	if (field == NULL)
+		return NULL;
+
+	return tostr(field);
 }

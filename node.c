@@ -18,8 +18,11 @@ void free_list(struct field_node **list){
 	*list = NULL;
 }
 
-void delete(struct field_node **list, struct field_node *field){
-	;
+void deletenext(struct field_node *field){
+	struct field_node *temp = field->next;
+
+	if(temp)
+		field = temp->next;
 	
 }
 
@@ -60,6 +63,22 @@ struct field_node *add_to_end(struct field_node **list,
 	node->next = new_field;
 
 	return *list;
+}
+
+char *tostr(struct field_node *node){
+
+	if (node == NULL)
+		return NULL;
+
+	char *str = malloc(sizeof(char) * (strlen(node->name) + strlen(node->text) + 3));
+
+	if(str == NULL)
+		exit(1);
+
+	strcpy(str, node->name);
+	strcat(str, ": ");
+	strcat(str, node->text);
+	return str;
 }
 
 /**
