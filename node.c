@@ -13,11 +13,13 @@ void free_list(struct field_node **list){
 	while (p != NULL){
 		temp = p;
 		p = p->next;
+		free(temp.name);
+		free(temp.text);
 		free(temp);
 	}
 	*list = NULL;
 }
-
+/*
 void deletenext(struct field_node *field){
 	struct field_node *temp = field->next;
 
@@ -25,7 +27,7 @@ void deletenext(struct field_node *field){
 		field = temp->next;
 	
 }
-
+*/
 void delete_s(struct field_node **list, char *field_name){
 	
 	struct field_node *node;

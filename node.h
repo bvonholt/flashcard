@@ -6,8 +6,8 @@
 
 
 struct field_node {
-	char name[MAX_FIELD_NAME_LENGTH];
-	char text[MAX_FIELD_TEXT_LENGTH];
+	char *name;
+	char *text;
 	struct field_node *next;
 };
 

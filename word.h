@@ -4,17 +4,17 @@
 #include "node.h"
 
 #define FILE_ERROR 1
-#define MAX_FIELD_NAME_LENGTH 15
-#define MAX_FIELD_TEXT_LENGTH 30
-#define TAG_FIELD_LENGTH 40
-#define NUM_ID_DIGITS 4
+#define LINE_OUT_OF_BOUNDS_ERROR 2
+
+#define MAX_LINE_LEN 200
+#define NUM_ID_DIGITS 3
 
 #define WORDS_FILE "words.data"
 
 typedef struct {
 	struct field_node *fields;
 	char *tags;
-	char word_id[NUM_ID_DIGITS];
+	char word_id[NUM_ID_DIGITS + 1];
 } word_t;
 
 word_t *read_words();

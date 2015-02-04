@@ -22,8 +22,10 @@ word_t *read_words(){
 	//counters
 	int i, j;
 	//containers
-	char * ch, line[90];
-
+	char *ch, *line, *tempstr;
+	
+	//give allocate 200 charater length for line.
+	line = malloc(sizeof(char) * MAX_LINE_LEN + 1);
 
 	/*read number of words from first line in file*/
 	char *p;
@@ -38,12 +40,14 @@ word_t *read_words(){
 
 		/* make sure that file is not currupted and
 		 * has fewer entries than listed.*/
-		if (fgets(line, 90, data_file) == NULL){
+		if (fgets(line, MAX_LINE_LEN, data_file) == NULL){
 			free(words);
 			exit(FILE_ERROR);
 		}
 
+		//ch points to first character in line
 		ch = line;
+
 		/*read word id from line*/
 		for (j = 0; *ch != '*'; j++){
 			words[i].word_id[j]=*ch++;
@@ -55,9 +59,20 @@ word_t *read_words(){
 		/*loop through fields*/
 		ch++;
 		while(*ch != '*'){
+
+			/*malloc new field*/
 			new_field = malloc(sizeof(struct field_node));
+
+			/*malloc space for name*/
+			#define MAX_STR_LEN 50
+
+
 			/*read field name*/
 			for(j = 0; *ch != ':'; j++){
+				//make sure the length is not out of bounds.
+				if (j % MAX_STR_LEN == 0)
+					tempstr = realloc(MAX_STRING_LEN * 2
+				tempstr[
 				new_field->name[j] = *ch++;
 			}
 			new_field->name[j] = '\0';
@@ -75,6 +90,7 @@ word_t *read_words(){
 		}
 		printf("%s", words[i].word_id);
 	}
+	free(line);
 	fclose(data_file);
 	return words;
 }
